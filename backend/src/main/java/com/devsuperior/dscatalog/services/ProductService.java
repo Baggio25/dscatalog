@@ -14,8 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
+import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
+import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -26,6 +29,9 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	@Transactional(readOnly = true)
 	public List<ProductDTO> findAll() {
 		List<Product> list = productRepository.findAll();
@@ -37,7 +43,7 @@ public class ProductService {
 		Page<Product> page = productRepository.findAll(pageRequest);
 		return page.map(product -> new ProductDTO(product));
 	}
-	
+
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
 		Optional<Product> optional = productRepository.findById(id);
@@ -48,7 +54,7 @@ public class ProductService {
 	@Transactional
 	public ProductDTO insert(ProductDTO productDTO) {
 		Product product = new Product();
-		//product.setName(productDTO.getName());
+		copyDTOToEntity(productDTO, product);
 
 		product = productRepository.save(product);
 
@@ -59,7 +65,7 @@ public class ProductService {
 	public ProductDTO update(ProductDTO productDTO, Long id) {
 		try {
 			Product product = productRepository.getOne(id);
-			//product.setName(productDTO.getName());
+			copyDTOToEntity(productDTO, product);
 
 			product = productRepository.save(product);
 
@@ -80,6 +86,18 @@ public class ProductService {
 		}
 	}
 
-
+	private void copyDTOToEntity(ProductDTO productDTO, Product product) {
+		product.setName(productDTO.getName());
+		product.setDescription(productDTO.getDescription());
+		product.setPrice(productDTO.getPrice());
+		product.setDate(productDTO.getDate());
+		product.setImgUrl(productDTO.getImgUrl());
+		
+		product.getCategories().clear();
+		for(CategoryDTO categoryDTO : productDTO.getCategories()) {
+			Category category = categoryRepository.getOne(categoryDTO.getId());
+			product.getCategories().add(category);
+		}
+	}
 
 }
