@@ -1,5 +1,6 @@
 package com.devsuperior.dscatalog.services;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
+import com.devsuperior.dscatalog.dto.UriDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
@@ -32,6 +35,9 @@ public class ProductService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	@Transactional(readOnly = true)
 	public List<ProductDTO> findAll() {
@@ -88,6 +94,11 @@ public class ProductService {
 			throw new DatabaseException("Integrity violation");
 		}
 	}
+	
+	public UriDTO uploadFile(MultipartFile file) {
+		URL url = s3Service.uploadFile(file);
+		return new UriDTO(url.toString());
+	}
 
 	private void copyDTOToEntity(ProductDTO productDTO, Product product) {
 		product.setName(productDTO.getName());
@@ -102,5 +113,7 @@ public class ProductService {
 			product.getCategories().add(category);
 		}
 	}
+
+
 
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 
@@ -59,5 +61,42 @@ public class ResourceExceptionHandler {
 		}
 		
 		return ResponseEntity.status(STATUS_UNPROCESSABLE).body(error);
+	}
+
+	@ExceptionHandler(AmazonServiceException.class)
+	public ResponseEntity<StandardError> amazonService(AmazonServiceException e, HttpServletRequest request) {
+		StandardError error = new StandardError();
+		error.setTimestamp(Instant.now());
+		error.setStatus(STATUS_BAD_REQUEST);
+		error.setError("AWS Exception");
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		
+		return ResponseEntity.status(STATUS_BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(AmazonClientException.class)
+	public ResponseEntity<StandardError> amazonClient(AmazonClientException e, HttpServletRequest request) {
+		StandardError error = new StandardError();
+		error.setTimestamp(Instant.now());
+		error.setStatus(STATUS_BAD_REQUEST);
+		error.setError("Amazon Client Exception");
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		
+		return ResponseEntity.status(STATUS_BAD_REQUEST).body(error);
+	}
+	
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<StandardError> illegalArgument(IllegalArgumentException e, HttpServletRequest request) {
+		StandardError error = new StandardError();
+		error.setTimestamp(Instant.now());
+		error.setStatus(STATUS_BAD_REQUEST);
+		error.setError("Bad request");
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		
+		return ResponseEntity.status(STATUS_BAD_REQUEST).body(error);
 	}
 }
