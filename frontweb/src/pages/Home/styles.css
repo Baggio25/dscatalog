@@ -2,7 +2,6 @@
   padding: 10px;
   font-size: 20px;
   text-align: center;
-  border: 1px solid red;
 }
 
 .home-card {
@@ -103,5 +102,43 @@
 
   .home-content-container {
     padding: 20px 20px 150px 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .home-card {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: calc(((82vh - 440px) / 2) - 20px) 0;
+  }
+
+  .home-content-container {
+    width: 700px;
+    height: 450px;
+    align-items: flex-start;
+    text-align: left;
+    align-content: space-between;
+    flex-flow: wrap;
+    padding: 20px;
+  }
+
+  .home-image-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .home-image-container {
+    padding: 100px 10px;
+  }
+
+  .home-image-container svg {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .home-image-container svg {
+    width: 480px;
   }
 }
