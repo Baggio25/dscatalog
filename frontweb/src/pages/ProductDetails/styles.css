@@ -1,19 +1,16 @@
 .product-details-container {
   padding: 10px;
   font-size: 24px;
-  border: 1px solid red;
 }
 
 .product-details-card {
   padding: 10px;
-  border: 1px solid red;
 }
 
 .product-details-goback-container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  border: 1px solid red;
 }
 
 .product-details-goback-container svg {
@@ -24,7 +21,7 @@
 
 .product-details-goback-container h2 {
   margin-left: 15px;
-  font-size: 1em;
+  font-size: 0.8em;
   text-transform: uppercase;
   letter-spacing: 0.015em;
   color: #263238;
@@ -33,7 +30,9 @@
 .product-details-img-container {
   text-align: center;
   margin-bottom: 20px;
-  border: 1px solid red;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #e1e1e1;
 }
 
 .product-details-img-container img {
@@ -43,7 +42,6 @@
 
 .product-details-name-price-container {
   margin-bottom: 20px;
-  border: 1px solid red;
 }
 .product-details-name-price-container h1 {
   font-size: 1.1em;
@@ -52,8 +50,11 @@
 }
 
 .product-details-description-container {
-  border: 1px solid red;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #e1e1e1;
 }
+
 .product-details-description-container h2 {
   margin-bottom: 20px;
   font-size: 0.8em;
@@ -65,4 +66,59 @@
   font-size: 0.6em;
   letter-spacing: 0.015em;
   color: #9e9e9e;
+}
+
+@media (min-width: 576px) {
+  .product-details-container {
+    font-size: 28px;
+    padding: 20px;
+  }
+
+  .product-details-card {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-details-container {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 992px) {
+  .product-details-container {
+    padding: 40px;
+    font-size: 32px;
+  }
+
+  .product-details-card {
+    padding: 40px;
+  }
+
+  .product-details-img-container img {
+    width: 50%;
+  }
+
+  .product-details-name-price-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .product-details-description-container {
+    padding: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .product-details-name-price-container {
+    display: block;
+  }
+
+  .product-details-img-container img {
+    width: auto;
+    height: 280px;
+  }
+  .product-details-description-container {
+    min-height: 302px;
+  }
 }
