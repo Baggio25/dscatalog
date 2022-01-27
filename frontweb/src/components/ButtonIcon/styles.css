@@ -24,6 +24,7 @@
 @media (min-width: 576px) {
   .btn h6 {
     font-size: 18px;
+    text-transform: uppercase;
   }
 
   .btn-icon-container {
