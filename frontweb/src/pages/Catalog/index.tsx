@@ -4,6 +4,7 @@ import { Product } from 'types/product';
 import ProductCard from 'components/ProductCard';
 
 import './styles.css';
+import Pagination from 'components/Pagination';
 
 const Catalog = () => {
   const product: Product = {
@@ -38,32 +39,9 @@ const Catalog = () => {
             <ProductCard product={product} />
           </Link>
         </div>
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/products/1">
-            <ProductCard product={product} />
-          </Link>
-        </div>
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/products/1">
-            <ProductCard product={product} />
-          </Link>
-        </div>
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/products/1">
-            <ProductCard product={product} />
-          </Link>
-        </div>
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/products/1">
-            <ProductCard product={product} />
-          </Link>
-        </div>
-        <div className="col-sm-6 col-lg-4 col-xl-3">
-          <Link to="/products/1">
-            <ProductCard product={product} />
-          </Link>
-        </div>
       </div>
+
+      <Pagination />
     </div>
   );
 };
