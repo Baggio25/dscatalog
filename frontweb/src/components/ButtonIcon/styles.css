@@ -3,12 +3,14 @@
 }
 
 .btn-container button {
+  width: calc(100% - 50px);
   border-radius: 10px 0 0 10px;
 }
 
 .btn h6 {
   color: #fff;
   font-size: 12px;
+  text-transform: uppercase;
 }
 
 .btn-icon-container {
@@ -25,7 +27,10 @@
 @media (min-width: 576px) {
   .btn h6 {
     font-size: 18px;
-    text-transform: uppercase;
+  }
+
+  .btn-container button {
+    width: calc(100% - 70px);
   }
 
   .btn-icon-container {
