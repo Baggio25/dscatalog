@@ -10,7 +10,7 @@ const TOKEN_KEY = 'dscatalogAuthData';
 
 type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
-type TokenData = {
+export type TokenData = {
   exp: number;
   user_name: string;
   authorities: Role[];
@@ -67,6 +67,10 @@ export const saveAuthData = (loginResponse: LoginResponse) => {
 export const getAuthData = () => {
   const str = localStorage.getItem(TOKEN_KEY) ?? '{}';
   return JSON.parse(str) as LoginResponse;
+}
+
+export const removeAuthData = () => {
+  localStorage.removeItem(TOKEN_KEY);
 }
 
 export const getTokenData = (): TokenData | undefined => {
