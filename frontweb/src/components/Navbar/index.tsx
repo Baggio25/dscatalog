@@ -62,7 +62,7 @@ const Navbar = () => {
           <ul className="navbar-nav offset-md-4 main-menu">
             <li>
               <NavLink to="/" activeClassName="active" exact>
-                HOME
+                INÍCIO
               </NavLink>
             </li>
             <li>
@@ -75,17 +75,30 @@ const Navbar = () => {
                 ADMINISTRADOR
               </NavLink>
             </li>
+            {authData.authenticated && (
+              <li>
+                <a
+                  href="#logout"
+                  className="main-nav-logout-sm"
+                  onClick={handleLogoutClick}
+                >
+                  SAIR
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 
-        <div>
+        <div className="main-nav-logout">
           {authData.authenticated ? (
-            <a href="#logout" onClick={handleLogoutClick}>
-              <>
-                <span>{authData.tokenData?.user_name}</span>
-                LOGOUT
-              </>
-            </a>
+            <>
+              <span className="main-nav-username">
+                {authData.tokenData?.user_name}
+              </span>
+              <a href="#logout" onClick={handleLogoutClick}>
+                SAIR
+              </a>
+            </>
           ) : (
             ''
           )}
