@@ -2,9 +2,20 @@ import axios from 'axios';
 import qs from 'qs';
 
 export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'https://dscatalog-prod.herokuapp.com';
-
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
+
+const TOKEN_KEY = 'dscatalogAuthData';
+
+type LoginResponse = {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  scope: string;
+  userLastName: string;
+  userFirstName: string;
+  userId: number
+}
 
 type LoginData = {
   username: string;
@@ -29,4 +40,13 @@ export const requestBackendLogin = (loginData: LoginData) => {
     data,
     headers
   })
+}
+
+export const saveAuthData = (loginResponse: LoginResponse) => {
+  localStorage.setItem(TOKEN_KEY, JSON.stringify(loginResponse));
+}
+
+export const getAuthData = () => {
+  const str = localStorage.getItem(TOKEN_KEY) ?? '{}';
+  return JSON.parse(str) as LoginResponse;
 }
