@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { getAuthData, requestBackendLogin, saveAuthData } from 'util/requests';
 
@@ -15,6 +15,7 @@ type FormData = {
 
 const Login = () => {
   const [hasError, setHasError] = useState(false);
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -30,6 +31,7 @@ const Login = () => {
 
         setHasError(false);
         console.log('SUCESSO >> ', response);
+        history.push('/admin');
       })
       .catch((error) => {
         setHasError(true);
