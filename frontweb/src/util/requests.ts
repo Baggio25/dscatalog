@@ -83,8 +83,26 @@ export const getTokenData = (): TokenData | undefined => {
 }
 
 export const isAuthenticated = (): boolean => {
-  const tokenData = getTokenData();
+  let tokenData = getTokenData();
   return (tokenData && ((tokenData.exp * 1000) > (Date.now()))) ? true : false;
+}
+
+export const hasAnyRoles = (roles: Role[]): boolean => {
+  if (roles.length === 0) {
+    return true;
+  }
+
+  const tokenData = getTokenData();
+  if (tokenData !== undefined) {
+    for (var i = 0; roles.length; i++) {
+      if (tokenData.authorities.includes(roles[i])) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+
 }
 
 axios.interceptors.request.use(function (config) {

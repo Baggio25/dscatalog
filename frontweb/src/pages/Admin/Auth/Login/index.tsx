@@ -23,11 +23,15 @@ type LocationState = {
 };
 
 const Login = () => {
+  const history = useHistory();
+  const { setAuthContextData } = useContext(AuthContext);
+
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const location = useLocation<LocationState>();
   const { from } = location.state || { from: { pathname: '/admin' } };
-  const { setAuthContextData } = useContext(AuthContext);
-  const [hasError, setHasError] = useState(false);
-  const history = useHistory();
+
   const {
     register,
     handleSubmit,
@@ -37,9 +41,8 @@ const Login = () => {
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
       .then((response) => {
+        setIsLoading(true);
         saveAuthData(response.data);
-        const token = getAuthData().access_token;
-
         setHasError(false);
         setAuthContextData({
           authenticated: true,
@@ -48,6 +51,7 @@ const Login = () => {
         history.replace(from);
       })
       .catch((error) => {
+        setIsLoading(false);
         setHasError(true);
         console.log('ERRO >> ', error);
       });
@@ -103,7 +107,7 @@ const Login = () => {
           Esqueci a senha
         </Link>
         <div className="login-submit">
-          <ButtonIcon text="Fazer login" />
+          <ButtonIcon text="Entrar" />
         </div>
         <div className="signup-container">
           <span className="not-registered">Não tem Cadastro?</span>
