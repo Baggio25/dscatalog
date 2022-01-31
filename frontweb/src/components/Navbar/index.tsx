@@ -1,41 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import {
-  isAuthenticated,
-  TokenData,
-  getTokenData,
-  removeAuthData,
-} from 'util/requests';
+
+import { isAuthenticated, getTokenData, removeAuthData } from 'util/requests';
+import history from 'util/history';
+
+import { AuthContext } from 'AuthContext';
 
 import 'bootstrap/js/src/collapse.js';
 import './styles.css';
-import history from 'util/history';
-
-type AuthData = {
-  authenticated: boolean;
-  tokenData?: TokenData;
-};
 
 const Navbar = () => {
-  const [authData, setAuthData] = useState<AuthData>({ authenticated: false });
+  const { authContextData, setAuthContextData } = useContext(AuthContext);
 
   useEffect(() => {
     if (isAuthenticated()) {
-      setAuthData({
+      setAuthContextData({
         authenticated: true,
         tokenData: getTokenData(),
       });
     } else {
-      setAuthData({
+      setAuthContextData({
         authenticated: false,
       });
     }
-  }, []);
+  }, [setAuthContextData]);
 
   const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     removeAuthData();
-    setAuthData({
+    setAuthContextData({
       authenticated: false,
     });
     history.replace('/admin/auth');
@@ -72,10 +65,10 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink to="/admin" activeClassName="active">
-                ADMINISTRADOR
+                {authContextData.authenticated ? 'ADMINISTRADOR' : 'ENTRAR'}
               </NavLink>
             </li>
-            {authData.authenticated && (
+            {authContextData.authenticated && (
               <li>
                 <a
                   href="#logout"
@@ -90,10 +83,10 @@ const Navbar = () => {
         </div>
 
         <div className="main-nav-logout">
-          {authData.authenticated ? (
+          {authContextData.authenticated ? (
             <>
               <span className="main-nav-username">
-                {authData.tokenData?.user_name}
+                {authContextData.tokenData?.user_name}
               </span>
               <a href="#logout" onClick={handleLogoutClick}>
                 SAIR
