@@ -8,7 +8,7 @@ import ProductCard from 'components/ProductCard';
 
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
-import { BASE_URL, requestBackend } from 'util/requests';
+import { requestBackend } from 'util/requests';
 
 import './styles.css';
 

@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
+import history from './history';
+
 export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'https://dscatalog-prod.herokuapp.com';
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
@@ -59,3 +61,26 @@ export const getAuthData = () => {
   const str = localStorage.getItem(TOKEN_KEY) ?? '{}';
   return JSON.parse(str) as LoginResponse;
 }
+
+axios.interceptors.request.use(function (config) {
+  console.log("INTERCEPTOR ANTES DA REQUIISIÇÃO")
+  return config;
+}, function (error) {
+  console.log("INTERCEPTOR ERRO NA REQUIISIÇÃO")
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function (response) {
+  console.log("INTERCEPTOR RESPOSTA COM SUCESSO")
+  return response;
+}, function (error) {
+  if (error.response.status === 401) {
+    history.push('/admin/auth/login')
+  }
+
+  if (error.response.status === 403) {
+    history.push('/admin/403')
+  }
+  console.log("INTERCEPTOR RESPOSTA COM ERRO")
+  return Promise.reject(error);
+});
