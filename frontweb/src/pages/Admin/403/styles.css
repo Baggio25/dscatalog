@@ -5,3 +5,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.page403-container button {
+  color: #fff;
+}
