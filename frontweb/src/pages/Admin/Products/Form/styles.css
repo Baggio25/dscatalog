@@ -5,7 +5,7 @@
 .product-crud-form-title {
   margin-bottom: 30px;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 20px;
   letter-spacing: -0.015em;
   color: #263238;
 }
@@ -26,17 +26,29 @@
   height: 150px;
 }
 
-.product-crud-buttons-container {
+.product-crud-form-buttons-container {
   display: flex;
   justify-content: space-between;
 }
 
+.product-crud-button {
+  height: 50px;
+  width: 110px;
+  border-radius: 10px;
+}
+
+@media (min-width: 576px) {
+  .product-crud-form-buttons-container {
+    justify-content: flex-end;
+  }
+
+  .product-crud-button {
+    margin-left: 30px;
+    width: 270px;
+  }
+}
 @media (min-width: 992px) {
   .product-crud-inputs-left-container {
     margin-bottom: 0;
-  }
-
-  .input-textarea {
-    height: 200px;
   }
 }
