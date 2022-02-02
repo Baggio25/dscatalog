@@ -4,6 +4,8 @@ import ProductPrice from 'components/ProductPrice';
 import { Product } from 'types/product';
 import CategoryBadge from '../CategoryBadge';
 
+import CameraImg from '../../../../assets/images/camera.png';
+
 type Props = {
   product: Product;
 };
@@ -12,7 +14,11 @@ const ProductCrudCard = ({ product }: Props) => {
   return (
     <div className="base-card product-crud-card">
       <div className="product-crud-card-top-container">
-        <img src={product.imgUrl} alt={product.name} />
+        {product.imgUrl === '' || product.imgUrl === null ? (
+          <img src={CameraImg} alt={product.name} />
+        ) : (
+          <img src={product.imgUrl} alt={product.name} />
+        )}
       </div>
       <div className="product-crud-card-description-container">
         <div className="product-crud-card-bottom-container">
