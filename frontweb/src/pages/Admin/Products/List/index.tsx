@@ -31,7 +31,7 @@ const List = () => {
   };
 
   return (
-    <>
+    <div className="product-crud-container">
       <div className="product-crud-bar-container">
         <ButtonCreate linkTo="/admin/products/create" />
         <div className="base-card product-filter-container">search bar</div>
@@ -51,7 +51,7 @@ const List = () => {
           <ProductCrudCard product={product} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
