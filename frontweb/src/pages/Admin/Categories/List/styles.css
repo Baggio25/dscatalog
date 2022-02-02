@@ -1,17 +1,17 @@
-.product-filter-container {
+.category-filter-container {
   margin-bottom: 20px;
   padding: 15px;
 }
 
 @media (min-width: 768px) {
-  .product-crud-bar-container {
+  .category-crud-bar-container {
     display: flex;
     margin-bottom: 40px;
   }
 
-  .product-filter-container {
+  .category-filter-container {
+    flex: 1;
     margin-left: 20px;
     margin-bottom: 0;
-    flex: 1;
   }
 }

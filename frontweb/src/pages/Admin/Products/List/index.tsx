@@ -1,3 +1,4 @@
+import ButtonCreate from 'components/ButtonCreate';
 import { Link } from 'react-router-dom';
 
 import ProductCrudCard from '../ProductCrudCard';
@@ -32,11 +33,7 @@ const List = () => {
   return (
     <>
       <div className="product-crud-bar-container">
-        <Link to="/admin/products/create">
-          <button className="btn btn-primary text-white btn-crud-add">
-            Adicionar
-          </button>
-        </Link>
+        <ButtonCreate linkTo="/admin/products/create" />
         <div className="base-card product-filter-container">search bar</div>
       </div>
 
