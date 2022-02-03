@@ -11,6 +11,8 @@ const Form = () => {
   const history = useHistory();
 
   const {
+    setFocus,
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -26,11 +28,13 @@ const Form = () => {
       withCredentials: true,
     };
 
-    requestBackend(config).then((response) => {
-      console.log(response.data);
-    });
+    requestBackend(config).then(() => {
+      setValue('name', '');
+      setValue('price', 0);
+      setValue('description', '');
 
-    //history.push('/admin/products/create');
+      setFocus('name');
+    });
   };
 
   const handleCancel = () => {
