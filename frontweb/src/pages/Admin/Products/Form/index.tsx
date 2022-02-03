@@ -1,14 +1,21 @@
 import { AxiosRequestConfig } from 'axios';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 
 import './styles.css';
 
+type UrlParams = {
+  productId: string;
+};
+
 const Form = () => {
   const history = useHistory();
+  const { productId } = useParams<UrlParams>();
+  const isEditing = productId !== 'create';
 
   const {
     setFocus,
@@ -18,22 +25,41 @@ const Form = () => {
     formState: { errors },
   } = useForm<Product>();
 
-  const onSubmit = (product: Product) => {
-    const data = { ...product, categories: [{ id: 1, name: '' }] };
+  useEffect(() => {
+    if (isEditing) {
+      requestBackend({ url: `/products/${productId}` }).then((response) => {
+        const product = response.data as Product;
+        setValue('name', product.name);
+        setValue('price', product.price);
+        setValue('description', product.description);
+        setValue('imgUrl', product.imgUrl);
+        setValue('categories', product.categories);
+      });
+    }
+  }, [isEditing, productId, setValue]);
 
+  const onSubmit = (product: Product) => {
+    const data = {
+      ...product,
+      categories: isEditing ? product.categories : [{ id: 1, name: '' }],
+    };
     const config: AxiosRequestConfig = {
-      method: 'POST',
-      url: '/products',
+      method: isEditing ? 'PUT' : 'POST',
+      url: isEditing ? `/products/${productId}` : '/products',
       data,
       withCredentials: true,
     };
 
     requestBackend(config).then(() => {
-      setValue('name', '');
-      setValue('price', 0);
-      setValue('description', '');
+      if (isEditing) {
+        history.push('/admin/products');
+      } else {
+        setValue('name', '');
+        setValue('price', 0);
+        setValue('description', '');
 
-      setFocus('name');
+        setFocus('name');
+      }
     });
   };
 
