@@ -12,25 +12,25 @@ import { requestBackend } from 'util/requests';
 const List = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
 
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const config: AxiosRequestConfig = {
       method: 'GET',
-      url: '/products?sort=name,asc',
+      url: '/products?sort=id,desc',
       params: {
         page: 0,
         size: 50,
       },
     };
 
-    setIsLoading(true);
+    //setIsLoading(true);
     requestBackend(config)
       .then((response) => {
         setPage(response.data);
       })
       .finally(() => {
-        setIsLoading(false);
+        //setIsLoading(false);
       });
   }, []);
 

@@ -33,7 +33,7 @@ const ProductCrudCard = ({ product }: Props) => {
       </div>
       <div className="product-crud-buttons-container">
         <button className="btn btn-outline-danger product-crud-card-button product-crud-card-button-first">
-          Cancelar
+          Excluir
         </button>
         <button className="btn btn-outline-secondary product-crud-card-button">
           Editar
