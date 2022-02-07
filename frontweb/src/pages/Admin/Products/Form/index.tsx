@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect } from 'react';
+import Select from 'react-select';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -16,6 +17,12 @@ const Form = () => {
   const history = useHistory();
   const { productId } = useParams<UrlParams>();
   const isEditing = productId !== 'create';
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
 
   const {
     setFocus,
@@ -75,6 +82,7 @@ const Form = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row product-crud-inputs-container">
             <div className="col-lg-6 product-crud-inputs-left-container">
+              {/* <!-- Input Nome --> */}
               <div className="margin-bottom-30">
                 <label className="form-label">Nome</label>
                 <input
@@ -92,6 +100,18 @@ const Form = () => {
                   {errors.name?.message}
                 </div>
               </div>
+
+              {/* <!-- Input Categoria --> */}
+              <div className="margin-bottom-30">
+                <label className="form-label">Categorias</label>
+                <Select
+                  options={options}
+                  isMulti
+                  classNamePrefix="crud-select"
+                />
+              </div>
+
+              {/* <!-- Input Preço --> */}
               <div className="margin-bottom-30">
                 <label className="form-label">Preço</label>
                 <input
