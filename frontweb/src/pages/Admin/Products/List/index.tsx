@@ -15,6 +15,10 @@ const List = () => {
   //const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = () => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: '/products?sort=id,desc',
@@ -32,7 +36,7 @@ const List = () => {
       .finally(() => {
         //setIsLoading(false);
       });
-  }, []);
+  };
 
   return (
     <div className="product-crud-container">
@@ -44,7 +48,7 @@ const List = () => {
       <div className="row">
         {page?.content.map((product) => (
           <div className="col-sm-6 col-md-12" key={product.id}>
-            <ProductCrudCard product={product} />
+            <ProductCrudCard product={product} onDelete={() => getProducts()} />
           </div>
         ))}
       </div>

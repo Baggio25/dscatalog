@@ -76,6 +76,7 @@ const Form = () => {
           <div className="row product-crud-inputs-container">
             <div className="col-lg-6 product-crud-inputs-left-container">
               <div className="margin-bottom-30">
+                <label className="form-label">Nome</label>
                 <input
                   {...register('name', {
                     required: 'Campo obrigatório',
@@ -84,7 +85,6 @@ const Form = () => {
                   className={`form-control base-input ${
                     errors.name ? 'is-invalid' : ''
                   }`}
-                  placeholder="Nome"
                   name="name"
                   autoFocus
                 />
@@ -93,6 +93,7 @@ const Form = () => {
                 </div>
               </div>
               <div className="margin-bottom-30">
+                <label className="form-label">Preço</label>
                 <input
                   {...register('price', {
                     required: 'Campo obrigatório',
@@ -101,7 +102,6 @@ const Form = () => {
                   className={`form-control base-input ${
                     errors.price ? 'is-invalid' : ''
                   }`}
-                  placeholder="Preço"
                   name="price"
                 />
                 <div className="invalid-feedback d-block">
@@ -111,6 +111,7 @@ const Form = () => {
             </div>
             <div className="col-lg-6">
               <div>
+                <label className="form-label">Observação</label>
                 <textarea
                   rows={10}
                   {...register('description', {
@@ -119,7 +120,6 @@ const Form = () => {
                   className={`form-control h-auto base-input ${
                     errors.description ? 'is-invalid' : ''
                   }`}
-                  placeholder="Descrição"
                   name="description"
                 />
                 <div className="invalid-feedback d-block">
