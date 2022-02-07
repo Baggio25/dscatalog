@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
+import { AxiosRequestConfig } from 'axios';
 
 import ButtonCreate from 'components/ButtonCreate';
+import Pagination from 'components/Pagination';
+
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
 
-import ProductCrudCard from '../ProductCrudCard';
-import './styles.css';
-import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'util/requests';
+
+import ProductCrudCard from '../ProductCrudCard';
+
+import './styles.css';
 
 const List = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
@@ -52,6 +56,7 @@ const List = () => {
           </div>
         ))}
       </div>
+      <Pagination />
     </div>
   );
 };
