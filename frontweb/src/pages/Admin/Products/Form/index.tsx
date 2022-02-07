@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Product } from 'types/product';
@@ -26,6 +26,7 @@ const Form = () => {
     setValue,
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<Product>();
 
@@ -71,7 +72,7 @@ const Form = () => {
         setValue('name', '');
         setValue('price', 0);
         setValue('description', '');
-
+        setValue('categories', []);
         setFocus('name');
       }
     });
@@ -111,13 +112,28 @@ const Form = () => {
               {/* <!-- Input Categoria --> */}
               <div className="margin-bottom-30">
                 <label className="form-label">Categorias</label>
-                <Select
-                  options={selectCategories}
-                  isMulti
-                  classNamePrefix="crud-select"
-                  getOptionLabel={(category: Category) => category.name}
-                  getOptionValue={(category: Category) => String(category.id)}
+                <Controller
+                  name="categories"
+                  rules={{ required: true }}
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={selectCategories}
+                      isMulti
+                      classNamePrefix="crud-select"
+                      getOptionLabel={(category: Category) => category.name}
+                      getOptionValue={(category: Category) =>
+                        String(category.id)
+                      }
+                    />
+                  )}
                 />
+                {errors.categories && (
+                  <div className="invalid-feedback d-block">
+                    Campo obrigatório
+                  </div>
+                )}
               </div>
 
               {/* <!-- Input Preço --> */}
