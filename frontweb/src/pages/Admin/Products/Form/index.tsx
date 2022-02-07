@@ -1,13 +1,14 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
-import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
+import Select from 'react-select';
+import CurrencyInput from 'react-currency-input-field';
 
 import { Product } from 'types/product';
-import { requestBackend } from 'util/requests';
-
 import { Category } from 'types/category';
+
+import { requestBackend } from 'util/requests';
 
 import './styles.css';
 
@@ -56,8 +57,9 @@ const Form = () => {
   const onSubmit = (product: Product) => {
     const data = {
       ...product,
-      categories: isEditing ? product.categories : [{ id: 1, name: '' }],
+      price: String(product.price).replace(',', '.'),
     };
+
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : '/products',
@@ -72,6 +74,7 @@ const Form = () => {
         setValue('name', '');
         setValue('price', 0);
         setValue('description', '');
+        setValue('imgUrl', '');
         setValue('categories', []);
         setFocus('name');
       }
@@ -139,22 +142,40 @@ const Form = () => {
               {/* <!-- Input Preço --> */}
               <div className="margin-bottom-30">
                 <label className="form-label">Preço</label>
-                <input
-                  {...register('price', {
-                    required: 'Campo obrigatório',
-                  })}
-                  type="text"
-                  className={`form-control base-input ${
-                    errors.price ? 'is-invalid' : ''
-                  }`}
+                <Controller
                   name="price"
+                  rules={{ required: 'Campo obrigatório' }}
+                  control={control}
+                  render={({ field }) => (
+                    <CurrencyInput
+                      className={`form-control base-input ${
+                        errors.price ? 'is-invalid' : ''
+                      }`}
+                      disableGroupSeparators={true}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    />
+                  )}
                 />
                 <div className="invalid-feedback d-block">
                   {errors.price?.message}
                 </div>
               </div>
+
+              {/* <!-- Input Foto --> */}
+              <div className="margin-bottom-30">
+                <label className="form-label">Foto</label>
+                <input
+                  {...register('imgUrl')}
+                  type="text"
+                  className={'form-control base-input'}
+                  name="imgUrl"
+                />
+              </div>
             </div>
+
             <div className="col-lg-6">
+              {/* <!-- Input Observação --> */}
               <div>
                 <label className="form-label">Observação</label>
                 <textarea
