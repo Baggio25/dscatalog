@@ -3,9 +3,6 @@
   padding: 15px;
 }
 
-.product-filter-form {
-}
-
 .product-filter-name-container {
   display: flex;
   align-items: center;
@@ -48,16 +45,35 @@
   display: none;
 }
 
-@media (min-width: 576px) {
-  .product-filter-btn-word {
-    display: unset;
+@media (min-width: 768px) {
+  .product-filter-container {
+    flex: 1;
+    margin-left: 20px;
+    margin-bottom: 0;
+    padding: 10px 15px;
+  }
+
+  .product-filter-form {
+    display: flex;
+  }
+
+  .product-filter-name-container {
+    flex: 1;
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+
+  .product-filter-category-container {
+    margin-right: 20px;
+  }
+
+  .product-filter-bottom-container {
+    flex: 1;
   }
 }
 
-@media (min-width: 768px) {
-  .product-filter-container {
-    margin-left: 20px;
-    margin-bottom: 0;
-    flex: 1;
+@media (min-width: 992px) {
+  .product-filter-btn-word {
+    display: unset;
   }
 }
