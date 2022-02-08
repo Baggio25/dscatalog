@@ -1,24 +1,70 @@
-import { ReactComponent as SearchIcon } from 'assets/images/search-icon.svg';
+import { useForm, Controller } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import Select from 'react-select';
 
+import { Category } from 'types/category';
+import { requestBackend } from 'util/requests';
+
+import { ReactComponent as SearchIcon } from 'assets/images/search-icon.svg';
 import './styles.css';
 
+type ProductFilterData = {
+  name: string;
+  category: Category;
+};
+
 const ProductFilter = () => {
+  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
+
+  const { register, handleSubmit, control } = useForm<ProductFilterData>();
+
+  const onSubmit = (productFilterData: ProductFilterData) => {
+    console.log('Enviou', productFilterData);
+  };
+
+  const getCategories = () => {
+    requestBackend({ url: '/categories' }).then((response) => {
+      setSelectCategories(response.data.content);
+    });
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   return (
     <div className="base-card product-filter-container">
-      <form className="product-filter-form">
+      <form className="product-filter-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="product-filter-name-container">
           <input
-            className="form-control"
+            {...register('name')}
             type="text"
+            className="form-control"
+            name="name"
             placeholder="Nome do produto"
           />
-          <SearchIcon />
+          <button>
+            <SearchIcon />
+          </button>
         </div>
         <div className="product-filter-bottom-container">
           <div className="product-filter-category-container">
-            <select>
-              <option value="">Livros</option>
-            </select>
+            <Controller
+              name="category"
+              rules={{ required: true }}
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  options={selectCategories}
+                  isClearable
+                  placeholder="Selecione a categoria"
+                  classNamePrefix="filter-select"
+                  getOptionLabel={(category: Category) => category.name}
+                  getOptionValue={(category: Category) => String(category.id)}
+                />
+              )}
+            />
           </div>
           <button className="btn btn-outline-secondary">LIMPAR</button>
         </div>
