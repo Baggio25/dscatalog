@@ -3,6 +3,7 @@ import { AxiosRequestConfig } from 'axios';
 
 import ButtonCreate from 'components/ButtonCreate';
 import Pagination from 'components/Pagination';
+import ProductFilter from 'components/ProductFilter';
 
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
@@ -56,7 +57,7 @@ const List = () => {
     <div className="product-crud-container">
       <div className="product-crud-bar-container">
         <ButtonCreate linkTo="/admin/products/create" />
-        <div className="base-card product-filter-container">search bar</div>
+        <ProductFilter />
       </div>
 
       <div className="row">
