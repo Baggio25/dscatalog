@@ -8,19 +8,23 @@ import { requestBackend } from 'util/requests';
 import { ReactComponent as SearchIcon } from 'assets/images/search-icon.svg';
 import './styles.css';
 
-type ProductFilterData = {
+export type ProductFilterData = {
   name: string;
   category: Category | null;
 };
 
-const ProductFilter = () => {
+type Props = {
+  onSubmitFilter: (data: ProductFilterData) => void;
+};
+
+const ProductFilter = ({ onSubmitFilter }: Props) => {
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
   const { register, handleSubmit, control, setValue, getValues } =
     useForm<ProductFilterData>();
 
   const onSubmit = (productFilterData: ProductFilterData) => {
-    console.log('Enviou', productFilterData);
+    onSubmitFilter(productFilterData);
   };
 
   const handleFormClear = () => {
@@ -36,7 +40,7 @@ const ProductFilter = () => {
       category: getValues('category'),
     };
 
-    console.log('Enviou', obj);
+    onSubmitFilter(obj);
   };
 
   const getCategories = () => {
