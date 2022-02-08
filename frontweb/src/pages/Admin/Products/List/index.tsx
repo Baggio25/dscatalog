@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AxiosRequestConfig } from 'axios';
 
 import ButtonCreate from 'components/ButtonCreate';
@@ -13,21 +13,27 @@ import ProductCrudCard from '../ProductCrudCard';
 
 import './styles.css';
 
+type ControlComponentsData = {
+  activePage: number;
+};
+
 const List = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
+  const [controlComponentsData, setControlComponentsData] =
+    useState<ControlComponentsData>({ activePage: 0 });
 
   //const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    getProducts(0);
-  }, []);
+  const handlePageChange = (pageNumber: number) => {
+    setControlComponentsData({ activePage: pageNumber });
+  };
 
-  const getProducts = (pageNumber: number) => {
+  const getProducts = useCallback(() => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: '/products?sort=id,desc',
       params: {
-        page: pageNumber,
+        page: controlComponentsData.activePage,
         size: 3,
       },
     };
@@ -40,7 +46,11 @@ const List = () => {
       .finally(() => {
         //setIsLoading(false);
       });
-  };
+  }, [controlComponentsData]);
+
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
   return (
     <div className="product-crud-container">
@@ -52,17 +62,14 @@ const List = () => {
       <div className="row">
         {page?.content.map((product) => (
           <div className="col-sm-6 col-md-12" key={product.id}>
-            <ProductCrudCard
-              product={product}
-              onDelete={() => getProducts(page.number)}
-            />
+            <ProductCrudCard product={product} onDelete={() => getProducts} />
           </div>
         ))}
       </div>
       <Pagination
         pageCount={page ? page.totalPages : 0}
         range={3}
-        onChange={getProducts}
+        onChange={handlePageChange}
       />
     </div>
   );
