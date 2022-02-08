@@ -9,6 +9,7 @@
 .product-filter-name-container {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
   border-bottom: 1px solid #e1e1e1;
 }
 
@@ -24,10 +25,33 @@
   color: #9e9e9e;
 }
 
+.product-filter-button-search-icon {
+  border: none;
+  background-color: unset;
+}
+
 .product-filter-bottom-container {
+  display: flex;
 }
 
 .product-filter-category-container {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.product-filter-btn-clear {
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.product-filter-btn-word {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .product-filter-btn-word {
+    display: unset;
+  }
 }
 
 @media (min-width: 768px) {

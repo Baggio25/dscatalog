@@ -55,6 +55,23 @@ ul {
 .crud-select__placeholder {
   color: #9e9e9e !important;
 }
+
 .crud-select__indicator-separator {
+  display: none;
+}
+
+.filter-select__control {
+  border: none !important;
+  border-bottom: 1px solid #e1e1e1 !important;
+  font-size: 1em;
+  letter-spacing: -0.015em;
+  color: #263238;
+}
+
+.filter-select__placeholder {
+  color: #9e9e9e !important;
+}
+
+.filter-select__indicator-separator {
   display: none;
 }
