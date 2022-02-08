@@ -16,7 +16,7 @@ const CategoryCrudCard = ({ category }: Props) => {
       </div>
       <div className="category-crud-buttons-container">
         <button className="btn btn-outline-danger category-crud-button category-crud-button-first">
-          Cancelar
+          Excluir
         </button>
         <button className="btn btn-outline-secondary category-crud-button">
           Editar

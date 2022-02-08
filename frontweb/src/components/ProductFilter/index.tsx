@@ -10,16 +10,33 @@ import './styles.css';
 
 type ProductFilterData = {
   name: string;
-  category: Category;
+  category: Category | null;
 };
 
 const ProductFilter = () => {
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
-  const { register, handleSubmit, control } = useForm<ProductFilterData>();
+  const { register, handleSubmit, control, setValue, getValues } =
+    useForm<ProductFilterData>();
 
   const onSubmit = (productFilterData: ProductFilterData) => {
     console.log('Enviou', productFilterData);
+  };
+
+  const handleFormClear = () => {
+    setValue('name', '');
+    setValue('category', null);
+  };
+
+  const handleChangeCategory = (value: Category) => {
+    setValue('category', value);
+
+    const obj: ProductFilterData = {
+      name: getValues('name'),
+      category: getValues('category'),
+    };
+
+    console.log('Enviou', obj);
   };
 
   const getCategories = () => {
@@ -51,7 +68,6 @@ const ProductFilter = () => {
           <div className="product-filter-category-container">
             <Controller
               name="category"
-              rules={{ required: true }}
               control={control}
               render={({ field }) => (
                 <Select
@@ -62,11 +78,15 @@ const ProductFilter = () => {
                   classNamePrefix="filter-select"
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}
+                  onChange={(value) => handleChangeCategory(value as Category)}
                 />
               )}
             />
           </div>
-          <button className="btn btn-outline-secondary product-filter-btn-clear">
+          <button
+            onClick={handleFormClear}
+            className="btn btn-outline-secondary product-filter-btn-clear"
+          >
             LIMPAR <span className="product-filter-btn-word">FILTRO</span>
           </button>
         </div>
