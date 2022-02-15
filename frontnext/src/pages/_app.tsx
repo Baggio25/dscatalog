@@ -1,6 +1,8 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
+import { Navbar } from "../components";
+
 import "../styles/custom.scss";
 import "../styles/globals.css";
 
@@ -20,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         <title>DSCatalog</title>
       </Head>
+      <Navbar />
       <Component {...pageProps} />
     </>
   );
