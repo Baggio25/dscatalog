@@ -1,11 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { ProductItemsProps } from "../../@types";
 import ProductPrice from "../ProductPrice";
-import styles from "./productitem.module.css";
-import productImg from "../../../public/product.png";
 
-export default function ProductItem() {
+import productImg from "../../../public/product.png";
+import styles from "./productitem.module.css";
+
+export default function ProductItem(product: ProductItemsProps) {
+  console.log(product);
   return (
     <Link href="/catalog/product/1">
       <a className={`card-base border-radius-10 ${styles.productCard}`}>
