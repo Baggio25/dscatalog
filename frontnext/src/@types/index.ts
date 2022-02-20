@@ -5,6 +5,7 @@ export type NavLinkProps = {
 
 export type ButtonIconProps = {
   label: string;
+  type: "button" | "submit";
 };
 
 export type ProductPriceProps = {
@@ -14,7 +15,7 @@ export type ProductPriceProps = {
 export type Category = {
   id: number;
   name: string;
-}
+};
 
 export type ProductItemsProps = {
   id: number;
@@ -24,12 +25,12 @@ export type ProductItemsProps = {
   imgUrl: string;
   date: string;
   categories: Category[];
-}
+};
 
 export type ProductsResponse = {
   products: ProductItemsProps[];
-}
+};
 
 export type ProductProps = {
   productDetails: ProductItemsProps;
-}
+};
