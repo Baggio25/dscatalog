@@ -18,7 +18,7 @@ export default function AuthPage() {
         </p>
         <Image src={imgBackground} alt="Auth Image" />
       </div>
-      <div className={`card-base ${styles.loginForm}`}>
+      <div className={`card-base ${styles.authCard}`}>
         <div className={styles.authContent}>
           <>
             <form
@@ -30,6 +30,7 @@ export default function AuthPage() {
                 type="text"
                 className="form-control input-base"
                 placeholder="Email"
+                autoFocus
               />
               <input
                 type="password"
@@ -40,7 +41,7 @@ export default function AuthPage() {
                 <a className={styles.loginLinkRecover}>Esqueci a senha</a>
               </Link>
               <div
-                className={`d-flex alig-items-center justify-content-center ${styles.loginSubmit}`}
+                className={`d-flex align-items-center justify-content-center ${styles.loginSubmit}`}
               >
                 <ButtonIcon label="Fazer login" type="submit" />
               </div>

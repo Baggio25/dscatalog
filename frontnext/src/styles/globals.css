@@ -34,14 +34,17 @@ a {
 }
 
 .input-base {
-  border: 1px solid #e1e1e1;
+  width: 100%;
+  max-width: 450px;
   box-sizing: border-box;
   border-radius: 10px;
   font-size: 18px;
   line-height: 25px;
   letter-spacing: -0.015em;
-  color: #263238;
   height: 50px;
+  margin-bottom: 30px;
+  color: #263238;
+  border: 1px solid #e1e1e1;
 }
 
 .input-base::placeholder {
