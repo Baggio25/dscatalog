@@ -1,3 +1,6 @@
+/**************************/
+/* ELEMENTOS DA APLICAÇÃO**/
+/**************************/
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
 
 * {
@@ -24,6 +27,10 @@ a {
   text-decoration: none;
 }
 
+/**************************/
+/**** CLASSES DE LAYOUT ***/
+/**************************/
+
 .active {
   color: #fff !important;
 }
@@ -42,7 +49,7 @@ a {
   line-height: 25px;
   letter-spacing: -0.015em;
   height: 50px;
-  margin-bottom: 30px;
+  /*margin-top: 30px;*/
   color: #263238;
   border: 1px solid #e1e1e1;
 }
@@ -61,4 +68,19 @@ a {
 
 .margin-bottom-30 {
   margin-bottom: 30px;
+}
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+
+/**************************/
+/**** ERRO FORMULÁRIO *****/
+/**************************/
+.login-form-error {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 0 40px;
 }

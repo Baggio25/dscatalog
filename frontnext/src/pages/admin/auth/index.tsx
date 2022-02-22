@@ -1,11 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 import { ButtonIcon } from "../../../components";
 import imgBackground from "../../../../public/authimage.svg";
 import styles from "../../../styles/pages/auth.module.css";
 
 export default function AuthPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    console.log(data);
+  };
+
   return (
     <div className={styles.authContainer}>
       <div className={`d-none d-lg-block ${styles.authInfo}`}>
@@ -22,6 +33,7 @@ export default function AuthPage() {
         <div className={styles.authContent}>
           <>
             <form
+              onSubmit={handleSubmit(onSubmit)}
               className={`d-flex flex-column align-items-center 
                             justify-content-between ${styles.loginForm}`}
             >
@@ -30,15 +42,40 @@ export default function AuthPage() {
                 type="text"
                 className="form-control input-base"
                 placeholder="Email"
-                autoFocus
+                {...register("username", {
+                  required: true,
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Email inválido",
+                  },
+                })}
               />
+              {errors.username?.type === "required" && (
+                <p className="login-form-error">
+                  O Preenchimento do email é obrigatório
+                </p>
+              )}
+              {errors.username?.type === "pattern" && (
+                <p className="login-form-error">Insira um email válido</p>
+              )}
+
               <input
                 type="password"
-                className="form-control input-base"
+                className="form-control input-base  margin-top-30"
                 placeholder="Senha"
+                {...register("password", {
+                  required: true,
+                })}
               />
+              {errors.password?.type === "required" && (
+                <p className="login-form-error">
+                  O Preenchimento da senha é obrigatório
+                </p>
+              )}
               <Link href="/">
-                <a className={styles.loginLinkRecover}>Esqueci a senha</a>
+                <a className={`margin-top-30 ${styles.loginLinkRecover}`}>
+                  Esqueci a senha
+                </a>
               </Link>
               <div
                 className={`d-flex align-items-center justify-content-center ${styles.loginSubmit}`}
