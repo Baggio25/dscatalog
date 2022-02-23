@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
+import { loginUser } from "../../../utils/auth";
 import { ButtonIcon } from "../../../components";
+
 import imgBackground from "../../../../public/authimage.svg";
 import styles from "../../../styles/pages/auth.module.css";
 
@@ -14,7 +16,8 @@ export default function AuthPage() {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    const { username, password } = data;
+    loginUser(username, password);
   };
 
   return (
