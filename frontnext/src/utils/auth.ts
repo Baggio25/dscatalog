@@ -10,7 +10,7 @@ export const loginUser = async (username: string, password: string) => {
     grant_type: "password",
   });
 
-  await api
+  const login = await api
     .post("/oauth/token", data, {
       headers: {
         Authorization: AUTH_TOKEN,
@@ -24,4 +24,6 @@ export const loginUser = async (username: string, password: string) => {
       return res.data;
     })
     .catch((err) => console.log(err));
+
+  return login;
 };

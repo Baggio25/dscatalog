@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useRouter } from "next/router";
 
 export function returnSelected(route: string): string | undefined {
@@ -5,7 +6,7 @@ export function returnSelected(route: string): string | undefined {
   const { pathname } = router;
 
   let result;
-  if (pathname === route) result = 'active';
+  if (pathname === route) result = "active";
 
   return result;
 }

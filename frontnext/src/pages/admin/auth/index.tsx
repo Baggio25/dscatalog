@@ -1,6 +1,8 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
 
 import { loginUser } from "../../../utils/auth";
 import { ButtonIcon } from "../../../components";
@@ -9,15 +11,24 @@ import imgBackground from "../../../../public/authimage.svg";
 import styles from "../../../styles/pages/auth.module.css";
 
 export default function AuthPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = (data: any) => {
+    setIsLoading(true);
     const { username, password } = data;
-    loginUser(username, password);
+    loginUser(username, password)
+      .then((res) => {
+        if (res.access_token) router.reload();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -83,7 +94,11 @@ export default function AuthPage() {
               <div
                 className={`d-flex align-items-center justify-content-center ${styles.loginSubmit}`}
               >
-                <ButtonIcon label="Fazer login" type="submit" />
+                <ButtonIcon
+                  disabled={isLoading}
+                  label="Fazer login"
+                  type="submit"
+                />
               </div>
               <div className="text-center">
                 <span className={styles.notRegistered}>Não tem cadastro? </span>

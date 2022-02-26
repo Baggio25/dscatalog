@@ -1,3 +1,8 @@
+export type AuthData = {
+  username: string;
+  password: string;
+};
+
 export type NavLinkProps = {
   target: string;
   label: string;
@@ -6,6 +11,7 @@ export type NavLinkProps = {
 export type ButtonIconProps = {
   label: string;
   type: "button" | "submit";
+  disabled?: boolean;
 };
 
 export type ProductPriceProps = {
