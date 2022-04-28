@@ -3,7 +3,8 @@ $body-color: #263238;
 
 $theme-colors: (
     "primary": #407bff,
-    "secondary": #e1e1e1
+    "secondary": #e1e1e1,
+    "danger": #dc3545
 );
 
 @import "bootstrap/scss/bootstrap.scss";
