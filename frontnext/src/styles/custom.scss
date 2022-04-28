@@ -1,0 +1,10 @@
+$body-bg: hsl(0, 0%, 95%);
+$body-color: #263238;
+
+$theme-colors: (
+    "primary": #407bff,
+    "secondary": #e1e1e1
+);
+
+@import "bootstrap/scss/bootstrap.scss";
+
