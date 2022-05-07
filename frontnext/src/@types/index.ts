@@ -1,19 +1,31 @@
+/**
+ * Navlink
+ */
 export type NavLinkProps = {
   target: string;
   label: string;
 };
 
+/**
+ * ButtonIcon
+ */
 export type ButtonIconProps = {
   label: string;
 };
 
-export type ProductPriceProps = {
-  price: string;
-};
-
+/**
+ * Category
+ */
 export type Category = {
   id: number;
   name: string;
+};
+
+/**
+ * Product
+ */
+export type ProductPriceProps = {
+  price: string;
 };
 
 export type ProductItemProps = {

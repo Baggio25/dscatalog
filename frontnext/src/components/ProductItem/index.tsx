@@ -1,26 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import productImage from "../../../public/product.png";
 import { ProductItemProps } from "../../@types";
 import ProductPrice from "../ProductPrice";
 
 import styles from "./productitem.module.css";
 
 export default function ProductItem(product: ProductItemProps) {
+  const { id, name, imgUrl, price } = product;
   return (
-    <Link href="/catalog/product/1">
+    <Link href={`/catalog/product/${id}`}>
       <a className={`card-base border-radius-10 ${styles.productCard}`}>
         <div className={styles.cardTopContainer}>
           <Image
-            src={productImage}
-            alt="Nome do produto"
+            src={imgUrl}
+            alt={name}
             className={styles.productCardImage}
+            width={160}
+            height={160}
           />
         </div>
         <div className={styles.cardBottomContainer}>
-          <h6>Nome do produto</h6>
-          <ProductPrice price="1999,90" />
+          <h6>{name}</h6>
+          <ProductPrice price={String(price)} />
         </div>
       </a>
     </Link>
