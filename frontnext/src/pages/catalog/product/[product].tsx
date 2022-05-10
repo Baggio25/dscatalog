@@ -1,13 +1,17 @@
+import { GetServerSidePropsContext } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { ProductPrice } from "../../../components";
+import { api } from "../../../utils/api";
+import { ProductProps } from "../../../@types";
 
 import arrow from "../../../../public/blue_arrow.svg";
-import productImg from "../../../../public/product_big.png";
 import styles from "../../../styles/pages/product.module.css";
 
-export default function ProductDetails() {
+export default function ProductDetails({ productDetails }: ProductProps) {
+  const { imgUrl, name, price, description } = productDetails;
+  
   return (
     <div className={styles.productDetailsContainer}>
       <div
@@ -25,16 +29,18 @@ export default function ProductDetails() {
               className={`text-center ${styles.productDetailsCard} ${styles.imgContainer}`}
             >
               <Image
-                src={productImg}
-                alt="Nome do produto"
+                src={imgUrl}
+                alt={name}
+                width={350}
+                height={350}
                 className={styles.productDetailsImage}
               />
             </div>
             <div className="d-md-flex justify-content-md-between flex-md-row flex-lg-column">
               <h1 className={styles.productDetailsName}>
-                Computador Intel Core I7 2.4Ghtz
+                {name}
               </h1>
-              <ProductPrice price="4999,90" />
+              <ProductPrice price={String(price)} />
             </div>
           </div>
           <div className={`col-xl-6 ${styles.productDetailsCard}`}>
@@ -42,17 +48,23 @@ export default function ProductDetails() {
               Descrição do produto
             </h1>
             <p className={styles.productDescriptionText}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-              dolor voluptates facere totam exercitationem officiis veniam
-              tempora numquam doloribus? Quam fuga delectus ea consectetur
-              reiciendis minus natus sunt. Doloribus error necessitatibus minus,
-              eos, officia dicta eum culpa amet consequatur provident quasi
-              distinctio nisi rem possimus laborum vero. Est, repudiandae
-              inventore!
+              {description}
             </p>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const { product: id } = ctx.query;
+  const res = await api.get(`/products/${id}`);
+  const productDetails = res.data;
+
+  return {
+    props: {
+      productDetails,
+    },
+  };
 }

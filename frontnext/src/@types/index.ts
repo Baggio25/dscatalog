@@ -41,3 +41,7 @@ export type ProductItemProps = {
 export type ProductsResponse = {
   products: ProductItemProps[];
 };
+
+export type ProductProps = {
+  productDetails: ProductItemProps;
+};
