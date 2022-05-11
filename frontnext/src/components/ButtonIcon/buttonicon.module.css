@@ -1,5 +1,5 @@
 .buttonContainer {
-  width: 220px;
+  width: 100%;
 }
 
 .buttonIcon {
@@ -10,7 +10,7 @@
 }
 
 .buttonIcon h5 {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     color: var(--white);
 }
@@ -31,7 +31,7 @@
     }
 
     .buttonIcon {
-        width: 20rem;
+        width: 100%;
         height: 70px;
     }
 
@@ -42,10 +42,4 @@
     .buttonIconContent {
         width: 70px;
     }
-}
-
-@media (min-width: 992px) {
-    .buttonIcon {
-        margin-left: -40px;
-    }   
 }

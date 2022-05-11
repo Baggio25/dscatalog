@@ -9,7 +9,7 @@
 
 .authInfoTitle {
   font-weight: 700;
-  font-size: 45px;
+  font-size: 40px;
   line-height: 55px;
   letter-spacing: -0.015em;
   margin-top: 30px;
@@ -18,7 +18,7 @@
 }
 
 .authInfoSubtitle {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 33px;
   letter-spacing: -0.015em;
   margin-top: 25px;
@@ -27,6 +27,12 @@
 }
 
 .authCard {
+  height: 100%;
+  width: 80vw;
+  min-height: 85vh;
+  max-width: 450px;
+  border-radius: 20px;
+  padding: 35px 25px 25px 25px;
 }
 
 .authContent {
@@ -36,16 +42,53 @@
 }
 
 .formTitle {
+  font-size: 32px;
+  line-height: 48px;
+  text-align: center;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--gray-800);
 }
 
 .loginLinkRecover {
-}
-
-.notRegister {
-}
-
-.loginLinkRegister {
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.015em;
+  display: block;
+  width: 100%;
+  padding-left: 30px;
+  margin-top: -15px;
+  color: var(--blue);
 }
 
 .loginSubmit {
+  margin: 75px 0;
+  width: 70%;
+}
+
+.notRegistered {
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.015em;
+  color: var(--gray-400);
+}
+
+.loginLinkRegister {
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.015em;
+  text-decoration: underline;
+  margin-left: 10px;
+  font-weight: bold;
+  color: var(--blue);
+}
+
+@media (min-width: 576px) {
+  .loginSubmit {
+    width: 100%;
+    padding: 0 40px;
+  }
 }

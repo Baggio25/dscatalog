@@ -30,6 +30,7 @@ export default function AuthPage() {
                 type="text"
                 className="form-control input-base"
                 placeholder="Email"
+                autoFocus={true}
               />
               <input
                 type="password"
@@ -40,12 +41,12 @@ export default function AuthPage() {
                 <a className={styles.loginLinkRecover}>Esqueci a senha</a>
               </Link>
               <div
-                className={`d-flex align-items-center justify-content-center ${styles}`}
+                className={`d-flex align-items-center justify-content-center ${styles.loginSubmit}`}
               >
                 <ButtonIcon label="Acessar" type="submit" />
               </div>
               <div className="text-center">
-                <span className={styles.notRegister}>Não tem cadastro?</span>
+                <span className={styles.notRegistered}>Não tem cadastro?</span>
                 <Link href="/auth/register">
                   <a className={styles.loginLinkRegister}>CADASTRAR</a>
                 </Link>
