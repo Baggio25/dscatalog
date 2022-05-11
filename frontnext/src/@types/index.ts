@@ -54,4 +54,15 @@ export type ProductProps = {
 export type AuthData = {
   username: string;
   password: string;
-}
+};
+
+export type AccessToken = {
+  exp: number;
+  user_name: string;
+  authorities: Role[];
+};
+
+/**
+ * Role
+ */
+export type Role = "ROLE_OPERATOR" | "ROLE_ADMIN";

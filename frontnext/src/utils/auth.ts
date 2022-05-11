@@ -1,5 +1,7 @@
+import jwtDecode from "jwt-decode";
 import queryString from "query-string";
 
+import { Role } from "../@types";
 import { api, AUTH_TOKEN } from "./api";
 
 export async function loginUser(username: string, password: string) {
@@ -22,4 +24,29 @@ export async function loginUser(username: string, password: string) {
   }).catch(err => console.log(err))
 
   return login;
+}
+
+export function isAllowedByRole(routeRoles: Role[] = []) {
+  if(routeRoles.length === 0) return true;
+
+  const { authorities } = getAccessTokenDecoded();
+} 
+
+export function getAccessTokenDecoded() {
+  const sessionData = getSessionData();
+
+  try {
+    const tokenDecoded = jwtDecode(sessionData.access_token);
+    return tokenDecoded as AccessToken;
+  } catch () {
+    return {} as AccessToken;
+  }
+}
+
+export function getSessionData() {
+  if(typeof window !== "undefined") {
+    const sessionData = localStorage.getItem("authData") || "{}";
+    const parsedSessionData = JSON.parse(sessionData);
+    return parsedSessionData as LoginResponse;
+  }
 }

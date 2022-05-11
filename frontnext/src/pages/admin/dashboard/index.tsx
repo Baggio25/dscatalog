@@ -4,7 +4,7 @@ import { Categories, Products, Users } from "./pages";
 
 export default function DashboardPage() {
   const route = useRouter();
-  const { index } = route.query; //Ex.: localhost:3000/admin/products
+  const { index } = route.query; //Ex.: localhost:3000/admin/dashboard/products
 
   const returnRoute = () => {
     switch (index) {
