@@ -66,6 +66,16 @@ a {
   color: var(--gray-400);
 }
 
+
+/* Form Validation */
+.login-form-error {
+  color: var(--red);
+  margin-top: -25px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 0 40px;
+}
+
 /* Spacing */
 
 .border-radius-10 {

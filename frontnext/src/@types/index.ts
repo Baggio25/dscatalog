@@ -46,3 +46,11 @@ export type ProductsResponse = {
 export type ProductProps = {
   productDetails: ProductItemProps;
 };
+
+/**
+ * Auth
+ */
+export type AuthData = {
+  username: string;
+  password: string;
+}
