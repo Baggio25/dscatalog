@@ -30,7 +30,7 @@ const Home: NextPage = () => {
 
           <Link href="/catalog">
             <a>
-              <ButtonIcon label="Inicie agora a sua busca" />
+              <ButtonIcon label="Inicie agora a sua busca" type="button" />
             </a>
           </Link>
         </div>
