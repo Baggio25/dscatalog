@@ -1,12 +1,14 @@
+import { useState } from "react";
+import { useForm } from 'react-hook-form';
 import Image from "next/image";
 import Link from "next/link";
-import { useForm } from 'react-hook-form';
 
 import { ButtonIcon } from "../../../components";
 import { AuthData } from "../../../@types";
 
 import imgBackground from "../../../../public/auth_image.svg";
 import styles from "../../../styles/pages/auth.module.css";
+import { loginUser } from "../../../utils/auth";
 
 export default function AuthPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -14,6 +16,7 @@ export default function AuthPage() {
   async function onSubmit(data: AuthData) {
     const { username, password } = data;
 
+    loginUser(username, password);
   }
 
   return (
@@ -87,7 +90,7 @@ export default function AuthPage() {
               <div
                 className={`d-flex align-items-center justify-content-center ${styles.loginSubmit}`}
               >
-                <ButtonIcon label="Acessar" type="submit" />
+                <ButtonIcon label="Acessar" type="submit"/>
               </div>
               <div className="text-center">
                 <span className={styles.notRegistered}>Não tem cadastro?</span>
