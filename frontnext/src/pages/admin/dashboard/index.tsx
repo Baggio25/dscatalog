@@ -1,7 +1,28 @@
+import { useRouter } from "next/router";
+
+import { Categories, Products, Users } from "./pages";
+
 export default function DashboardPage() {
-  return (
-    <div className="container">
-      <h3 className="my-4">Dashboard</h3>
-    </div>
-  );
+  const route = useRouter();
+  const { index } = route.query; //Ex.: localhost:3000/admin/products
+
+  const returnRoute = () => {
+    switch (index) {
+      case "products":
+        return <Products />;
+
+      case "users":
+        return <Users />;
+
+      case "categories":
+        return <Categories />;
+
+      default:
+        return <Products />;
+    }
+  };
+
+  return <div className="d-flex flex-column flex-lg-row">
+    {returnRoute()}
+  </div>;
 }

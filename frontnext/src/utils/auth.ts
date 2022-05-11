@@ -9,7 +9,7 @@ export async function loginUser(username: string, password: string) {
     grant_type: "password",
   });
 
-  await api.post("/oauth/token", data, {
+  const login = await api.post("/oauth/token", data, {
       headers: {
           Authorization: AUTH_TOKEN,
           "Content-Type": "application/x-www-form-urlencoded"
@@ -20,4 +20,6 @@ export async function loginUser(username: string, password: string) {
       localStorage.setItem("@dscatalog/token", JSON.stringify(access_token));
       return res.data;
   }).catch(err => console.log(err))
+
+  return login;
 }

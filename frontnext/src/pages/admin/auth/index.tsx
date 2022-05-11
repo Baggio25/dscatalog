@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { ButtonIcon } from "../../../components";
 import { AuthData } from "../../../@types";
@@ -11,12 +12,26 @@ import styles from "../../../styles/pages/auth.module.css";
 import { loginUser } from "../../../utils/auth";
 
 export default function AuthPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function onSubmit(data: AuthData) {
+  const onSubmit = (data: AuthData) => {
+    setIsLoading(true);
     const { username, password } = data;
 
-    loginUser(username, password);
+    loginUser(username, password)
+      .then((res) => {
+        if (res.access_token) {
+          router.reload();
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -44,53 +59,44 @@ export default function AuthPage() {
                 className="form-control input-base"
                 placeholder="Email"
                 autoFocus={true}
-                {
-                  ...register("username", {
-                    required: true,
-                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-                  })
-                }
+                {...register("username", {
+                  required: true,
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                })}
               />
-              {
-                errors.username?.type === "required" && (
-                  <p className="login-form-error">
-                    O Preenchimento do E-mail é obrigatório
-                  </p>
-                )
-              }
-              {
-                errors.username?.type === "pattern" && (
-                  <p className="login-form-error">
-                    Insira um e-mail válido
-                  </p>
-                )
-              }
-
+              {errors.username?.type === "required" && (
+                <p className="login-form-error">
+                  O Preenchimento do E-mail é obrigatório
+                </p>
+              )}
+              {errors.username?.type === "pattern" && (
+                <p className="login-form-error">Insira um e-mail válido</p>
+              )}
 
               <input
                 type="password"
                 className="form-control input-base"
                 placeholder="Senha"
-                {
-                  ...register("password", {
-                    required: true
-                  })
-                }
+                {...register("password", {
+                  required: true,
+                })}
               />
-              {
-                errors.password?.type === "required" && (
-                  <p className="login-form-error">
-                    O Preenchimento da Senha é obrigatório
-                  </p>
-                )
-              }
+              {errors.password?.type === "required" && (
+                <p className="login-form-error">
+                  O Preenchimento da Senha é obrigatório
+                </p>
+              )}
               <Link href="/">
                 <a className={styles.loginLinkRecover}>Esqueci a senha</a>
               </Link>
               <div
                 className={`d-flex align-items-center justify-content-center ${styles.loginSubmit}`}
               >
-                <ButtonIcon label="Acessar" type="submit"/>
+                <ButtonIcon
+                  label={isLoading ? "Carregando..." : "Acessar"}
+                  type="submit"
+                  disabled={isLoading}
+                />
               </div>
               <div className="text-center">
                 <span className={styles.notRegistered}>Não tem cadastro?</span>

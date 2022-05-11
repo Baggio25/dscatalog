@@ -12,6 +12,7 @@ export type NavLinkProps = {
 export type ButtonIconProps = {
   label: string;
   type: "button" | "submit";
+  disabled?: boolean;
 };
 
 /**
