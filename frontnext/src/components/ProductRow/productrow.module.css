@@ -1,0 +1,82 @@
+.productRowContainer {
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: var(--white);
+}
+
+.imgContainer {
+  width: 140px;
+  height: 130px;
+  margin-right: 20px;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+}
+
+.productRowDetails {
+  width: 100%;
+}
+
+.categories {
+}
+
+.category {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: -0.015em;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-right: 5px;
+  background: var(--gray-300);
+  color: var(--gray-800);
+}
+
+.buttonContainer {
+  width: 100%;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.buttonContainer button {
+  width: 50%;
+  height: 40px;
+  background-color: var(--white);
+  border-radius: 10px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: -0.015em;
+}
+
+.buttonEdit {
+  border: 1px solid var(--gray-400);
+  color: var(--gray-400);
+}
+
+.buttonDelete {
+  border: 1px solid var(--red);
+  color: var(--red);
+}
+
+@media (min-width: 768px) {
+  .productRowDetails {
+    flex: 70%;
+  }
+
+  .buttonContainer {
+    flex: 15%;
+  }
+
+  .buttonContainer button {
+    width: 100%;
+  }
+}
