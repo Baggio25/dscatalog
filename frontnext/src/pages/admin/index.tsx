@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import AuthPage from "./auth";
-import DashboardPage from "./dashboard";
+import DashboardPage from "./dashboard/[index]";
 
 export default function AdminPage() {
   const [logged, setLogged] = useState(false);

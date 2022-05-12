@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import { Sidebar } from "../../../components";
 import { Categories, Products, Users } from "./pages";
 
 export default function DashboardPage() {
@@ -23,6 +24,7 @@ export default function DashboardPage() {
   };
 
   return <div className="d-flex flex-column flex-lg-row">
+    <Sidebar />
     {returnRoute()}
   </div>;
 }

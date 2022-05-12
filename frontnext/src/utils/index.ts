@@ -14,11 +14,11 @@ export function returnSelected(route: string) {
 
 export function returnActiveItem(route: string) {
     const router = useRouter();
-    const { pathname } = router;
+    const { asPath } = router;
 
     let result;
 
-    if(pathname === route)  result = "active-sidebar-item";
+    if(asPath === route)  result = "active-sidebar-item";
 
     return result;
 }
