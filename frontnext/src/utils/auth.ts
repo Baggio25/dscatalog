@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import queryString from "query-string";
 
-import { Role } from "../@types";
+import { AccessToken, LoginResponse, Role } from "../@types";
 import { api, AUTH_TOKEN } from "./api";
 
 export async function loginUser(username: string, password: string) {
@@ -30,6 +30,8 @@ export function isAllowedByRole(routeRoles: Role[] = []) {
   if(routeRoles.length === 0) return true;
 
   const { authorities } = getAccessTokenDecoded();
+  
+  return routeRoles.some((role) => authorities?.includes(role));
 } 
 
 export function getAccessTokenDecoded() {
@@ -38,7 +40,7 @@ export function getAccessTokenDecoded() {
   try {
     const tokenDecoded = jwtDecode(sessionData.access_token);
     return tokenDecoded as AccessToken;
-  } catch () {
+  } catch (err) {
     return {} as AccessToken;
   }
 }
@@ -50,3 +52,4 @@ export function getSessionData() {
     return parsedSessionData as LoginResponse;
   }
 }
+
