@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
+import { ProductsResponse } from "../../@types";
+import { api } from "../../utils/api";
 import AuthPage from "./auth";
 import DashboardPage from "./dashboard/[index]";
 
-export default function AdminPage() {
+export default function AdminPage({ products }: ProductsResponse) {
   const [logged, setLogged] = useState(false);
 
   useEffect(() => {
@@ -15,8 +17,25 @@ export default function AdminPage() {
   }, []);
 
   if (logged) {
-    return <DashboardPage />;
+    return <DashboardPage products={products} />;
   } else {
     return <AuthPage />;
   }
+}
+
+export async function getServerSideProps() {
+  const params = {
+    page: 0,
+    size: 12,
+    sort: "name,asc",
+  };
+
+  const res = await api({ url: "/products", params });
+  const products = res.data.content;
+
+  return {
+    props: {
+      products,
+    },
+  };
 }

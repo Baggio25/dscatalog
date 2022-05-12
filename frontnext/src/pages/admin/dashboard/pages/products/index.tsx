@@ -1,7 +1,16 @@
-export default function Products() {
+import { ProductsResponse } from "../../../../../@types";
+import { ProductRow } from "../../../../../components";
+
+function Products({ products }: ProductsResponse) {
   return (
-    <>
-      <h3 className="my-4">Products</h3>
-    </>
+    <div>
+      <div style={{width: "100%", padding: 40}}>
+        {products.map((product) => (
+          <ProductRow {...product} key={product.id} />
+        ))}
+      </div>
+    </div>
   );
 }
+
+export default Products;
