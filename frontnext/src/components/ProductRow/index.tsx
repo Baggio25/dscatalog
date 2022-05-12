@@ -1,9 +1,22 @@
 import { ProductItemProps } from "../../@types";
+import { api } from "../../utils/api";
 import ProductPrice from "../ProductPrice";
 
 import styles from "./productrow.module.css";
 
 export default function ProductRow(product: ProductItemProps) {
+  const deleteProduct = async (productId: number) => {
+    await api({
+      url: `/products/${productId}`,
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("@dscatalog/token") ?? "")}`
+      }
+    });
+    
+    history.go(0);
+  }
+
   return (
     <div
       className={`d-flex flex-column flex-md-row align-items-center p-4 ${styles.productRowContainer}`}
@@ -28,7 +41,7 @@ export default function ProductRow(product: ProductItemProps) {
         <button type="button" className={styles.buttonEdit}>
           Editar
         </button>
-        <button type="button" className={styles.buttonDelete}>
+        <button type="button" className={styles.buttonDelete} onClick={() => deleteProduct(product.id)}>
           Excluir
         </button>
       </div>
